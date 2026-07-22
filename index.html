@@ -42,8 +42,26 @@
 <h2>📦 Input Stock</h2>
 
 <input type="text" id="polibox" placeholder="Polibox" readonly>
-
 <button onclick="scanPolibox()">Scan Polibox</button>
+
+<input type="text" id="material" placeholder="Material" readonly>
+<button onclick="scanMaterial()">Scan Material</button>
+
+<input type="number" id="qty" placeholder="Qty">
+
+<div style="margin:10px 0;">
+    <label>
+        <input type="radio" name="jenis" value="Tambah" checked>
+        Tambah
+    </label>
+
+    <label style="margin-left:20px;">
+        <input type="radio" name="jenis" value="Ambil">
+        Ambil
+    </label>
+</div>
+
+<button onclick="submitData()">Submit</button>
 
 <div id="reader"></div>
 
@@ -73,6 +91,45 @@ function scanPolibox(){
     );
 
 }
+
+function scanMaterial(){
+
+    document.getElementById("reader").innerHTML="";
+
+    scanner = new Html5Qrcode("reader");
+
+    scanner.start(
+        { facingMode: "environment" },
+        {
+            fps:10,
+            qrbox:250
+        },
+        (text)=>{
+
+            document.getElementById("material").value=text;
+
+            scanner.stop();
+
+        }
+    );
+
+}
+
+function submitData(){
+
+    const data = {
+        polibox: document.getElementById("polibox").value,
+        material: document.getElementById("material").value,
+        qty: document.getElementById("qty").value,
+        jenis: document.querySelector('input[name="jenis"]:checked').value
+    };
+
+    console.log(data);
+
+    alert("Data siap dikirim ke Google Sheets");
+}
+
+
 
 </script>
 
