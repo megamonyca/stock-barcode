@@ -101,7 +101,15 @@ function onScanSuccess(text) {
 
         scanStep = "material";
 
-        alert("Sekarang scan Material");
+       scanner.stop()
+.then(() => {
+    setTimeout(() => {
+        scanMaterial();
+    }, 300);
+})
+.catch(err => {
+    console.log(err);
+});
 
         return;
     }
@@ -109,6 +117,29 @@ function onScanSuccess(text) {
     document.getElementById("material").value = text;
 
     scanner.stop();
+
+}
+
+function scanMaterial(){
+
+    document.getElementById("reader").innerHTML="";
+
+    scanner = new Html5Qrcode("reader");
+
+    scanner.start(
+        { facingMode: "environment" },
+        {
+            fps:10,
+            qrbox:250
+        },
+        (text)=>{
+
+            document.getElementById("material").value=text;
+
+            scanner.stop();
+
+        }
+    );
 
 }
 
