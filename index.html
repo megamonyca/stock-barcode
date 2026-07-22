@@ -7,6 +7,8 @@
 
     <script src="https://unpkg.com/html5-qrcode"></script>
 
+    
+
     <style>
     body{
         font-family: Arial, sans-serif;
@@ -117,6 +119,10 @@
 
 <script>
 
+const formatsToSupport = [
+    Html5QrcodeSupportedFormats.CODE_39
+];
+
 let scanner;
 let scanStep = "polibox";
 
@@ -137,8 +143,11 @@ setTimeout(() => {
     scanner.start(
         { facingMode: "environment" },
         {
-            fps: 10,
-            qrbox: 250
+            fps: 20,
+            qrbox: {
+                width: 300,
+                height: 300
+}
         },
         onScanSuccess
     );
