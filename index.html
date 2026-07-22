@@ -118,23 +118,27 @@ function scanMaterial(){
 async function submitData() {
 
     const data = {
-        polibox: document.getElementById("polibox").value,
-        material: document.getElementById("material").value,
-        qty: document.getElementById("qty").value,
-        jenis: document.querySelector('input[name="jenis"]:checked').value
+        Timestamp: new Date().toLocaleString("id-ID"),
+        Polibox: document.getElementById("polibox").value,
+        Material: document.getElementById("material").value,
+        Jenis: document.querySelector('input[name="jenis"]:checked').value,
+        Qty: document.getElementById("qty").value
     };
 
     try {
 
-        const response = await fetch("https://script.google.com/macros/s/AKfycbz6EXmVWYoXcQOE2qlZ01MfgUUtbqx2LWerg-8i33pHOdB7vXBlZN6cOE0kdknKAY6Y/exec", {
+        const response = await fetch("https://sheetdb.io/api/v1/24ih9th4qot6u", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                data: [data]
+            })
         });
 
         const result = await response.json();
+        console.log(result);
 
         alert("Berhasil disimpan!");
 
@@ -148,9 +152,7 @@ async function submitData() {
         alert("Gagal menyimpan");
 
     }
-
 }
-
 
 
 </script>
