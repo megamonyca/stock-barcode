@@ -8,33 +8,72 @@
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            max-width:400px;
-            margin:20px auto;
-            padding:15px;
-        }
+    body{
+        font-family: Arial, sans-serif;
+        max-width:400px;
+        margin:20px auto;
+        padding:15px;
+    }
 
-        button{
-            width:100%;
-            padding:12px;
-            margin:8px 0;
-            font-size:16px;
-        }
+    button{
+        width:100%;
+        padding:12px;
+        margin:8px 0;
+        font-size:16px;
+    }
 
-        input{
-            width:100%;
-            padding:10px;
-            margin:8px 0;
-            font-size:16px;
-            box-sizing:border-box;
-        }
+    input{
+        width:100%;
+        padding:10px;
+        margin:8px 0;
+        font-size:16px;
+        box-sizing:border-box;
+    }
 
-        #reader{
-            width:100%;
-            margin-top:15px;
-        }
-    </style>
+    #reader{
+        width:100%;
+        margin-top:15px;
+    }
+
+    /* TAMBAHKAN MULAI DARI SINI */
+
+    #scannerModal{
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:white;
+        z-index:9999;
+    }
+
+    .scannerHeader{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px;
+        background:#1976d2;
+        color:white;
+    }
+
+    .scannerHeader h3{
+        margin:0;
+    }
+
+    .scannerHeader button{
+        width:auto;
+        margin:0;
+        padding:8px 12px;
+    }
+
+    #reader{
+        width:100%;
+        height:calc(100vh - 70px);
+        margin-top:0;
+    }
+
+</style>
 </head>
 
 <body>
@@ -65,7 +104,16 @@
 
 <button onclick="submitData()">Submit</button>
 
-<div id="reader"></div>
+<div id="scannerModal">
+
+    <div class="scannerHeader">
+        <h3>📷 Scan Barcode</h3>
+        <button onclick="closeScanner()">✖</button>
+    </div>
+
+    <div id="reader"></div>
+
+</div>
 
 <script>
 
@@ -75,6 +123,10 @@ let scanStep = "polibox";
 
 
 function startScan() {
+
+    document.getElementById("scannerModal").style.display = "block";
+
+setTimeout(() => {
 
     scanStep = "polibox";
 
@@ -90,7 +142,7 @@ function startScan() {
         },
         onScanSuccess
     );
-
+    },200);
 }
 
 function onScanSuccess(text) {
@@ -136,10 +188,34 @@ function scanMaterial(){
 
             document.getElementById("material").value=text;
 
-            scanner.stop();
+            scanner.stop().then(() => {
+
+    document.getElementById("scannerModal").style.display = "none";
+
+});
 
         }
     );
+
+}
+
+function closeScanner() {
+
+    if (scanner) {
+
+        scanner.stop()
+        .catch(() => {})
+        .finally(() => {
+
+            document.getElementById("scannerModal").style.display = "none";
+
+        });
+
+    } else {
+
+        document.getElementById("scannerModal").style.display = "none";
+
+    }
 
 }
 
