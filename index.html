@@ -119,10 +119,6 @@
 
 <script>
 
-const formatsToSupport = [
-    Html5QrcodeSupportedFormats.CODE_39
-];
-
 let scanner;
 let scanStep = "polibox";
 
@@ -159,6 +155,8 @@ function onScanSuccess(text) {
     if (scanStep === "polibox") {
 
         document.getElementById("polibox").value = text;
+
+        alert("✅ Scan Polibox berhasil!\n\nSilakan scan Material.");
 
         scanStep = "material";
 
