@@ -42,10 +42,12 @@
 <h2>📦 Input Stock</h2>
 
 <input type="text" id="polibox" placeholder="Polibox" readonly>
-<button onclick="scanPolibox()">Scan Polibox</button>
 
 <input type="text" id="material" placeholder="Material" readonly>
-<button onclick="scanMaterial()">Scan Material</button>
+
+<button onclick="startScan()">
+📷 Mulai Scan
+</button>
 
 <input type="number" id="qty" placeholder="Qty">
 
@@ -68,6 +70,7 @@
 <script>
 
 let scanner;
+let scanStep = "polibox";
 
 function scanPolibox(){
 
@@ -112,6 +115,14 @@ function scanMaterial(){
 
         }
     );
+
+}
+
+function startScan(){
+
+    scanStep = "polibox";
+
+    scanPolibox();
 
 }
 
