@@ -86,11 +86,23 @@ function scanPolibox(){
         },
         (text)=>{
 
-            document.getElementById("polibox").value=text;
+    if(scanStep=="polibox"){
 
-            scanner.stop();
+        document.getElementById("polibox").value = text;
 
-        }
+        scanStep = "material";
+
+        alert("Polibox berhasil.\nSekarang scan Material.");
+
+        return;
+
+    }
+
+    document.getElementById("material").value = text;
+
+    scanner.stop();
+
+}
     );
 
 }
