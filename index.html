@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Scanner</title>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            max-width:400px;
+            margin:20px auto;
+            padding:15px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin:8px 0;
+            font-size:16px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            font-size:16px;
+            box-sizing:border-box;
+        }
+
+        #reader{
+            width:100%;
+            margin-top:15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>📦 Input Stock</h2>
+
+<input type="text" id="polibox" placeholder="Polibox" readonly>
+
+<button onclick="scanPolibox()">Scan Polibox</button>
+
+<div id="reader"></div>
+
+<script>
+
+let scanner;
+
+function scanPolibox(){
+
+    document.getElementById("reader").innerHTML="";
+
+    scanner = new Html5Qrcode("reader");
+
+    scanner.start(
+        { facingMode: "environment" },
+        {
+            fps:10,
+            qrbox:250
+        },
+        (text)=>{
+
+            document.getElementById("polibox").value=text;
+
+            scanner.stop();
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
