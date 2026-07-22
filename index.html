@@ -72,69 +72,43 @@
 let scanner;
 let scanStep = "polibox";
 
-function scanPolibox(){
 
-    document.getElementById("reader").innerHTML="";
+
+function startScan() {
+
+    scanStep = "polibox";
+
+    document.getElementById("reader").innerHTML = "";
 
     scanner = new Html5Qrcode("reader");
 
     scanner.start(
         { facingMode: "environment" },
         {
-            fps:10,
-            qrbox:250
+            fps: 10,
+            qrbox: 250
         },
-        (text)=>{
+        onScanSuccess
+    );
 
-    if(scanStep=="polibox"){
+}
+
+function onScanSuccess(text) {
+
+    if (scanStep === "polibox") {
 
         document.getElementById("polibox").value = text;
 
         scanStep = "material";
 
-        alert("Polibox berhasil.\nSekarang scan Material.");
+        alert("Sekarang scan Material");
 
         return;
-
     }
 
     document.getElementById("material").value = text;
 
     scanner.stop();
-
-}
-    );
-
-}
-
-function scanMaterial(){
-
-    document.getElementById("reader").innerHTML="";
-
-    scanner = new Html5Qrcode("reader");
-
-    scanner.start(
-        { facingMode: "environment" },
-        {
-            fps:10,
-            qrbox:250
-        },
-        (text)=>{
-
-            document.getElementById("material").value=text;
-
-            scanner.stop();
-
-        }
-    );
-
-}
-
-function startScan(){
-
-    scanStep = "polibox";
-
-    scanPolibox();
 
 }
 
