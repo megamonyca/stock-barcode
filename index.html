@@ -109,7 +109,7 @@
 <div id="scannerModal">
 
     <div class="scannerHeader">
-        <h3>📷 Scan Barcode</h3>
+        <h3 id="scannerTitle">📦 Scan Polibox</h3>
         <button onclick="closeScanner()">✖</button>
     </div>
 
@@ -131,6 +131,7 @@ function startScan() {
 setTimeout(() => {
 
     scanStep = "polibox";
+    document.getElementById("scannerTitle").innerText = "📦 Scan Polibox";
 
     document.getElementById("reader").innerHTML = "";
 
@@ -159,6 +160,7 @@ function onScanSuccess(text) {
         alert("✅ Scan Polibox berhasil!\n\nSilakan scan Material.");
 
         scanStep = "material";
+        document.getElementById("scannerTitle").innerText = "📄 Scan Material";
 
        scanner.stop()
 .then(() => {
@@ -238,7 +240,7 @@ async function submitData() {
 
     try {
 
-        const response = await fetch("https://sheetdb.io/api/v1/24ih9th4qot6u", {
+        const response = await fetch("https://sheetdb.io/api/v1/grupldc2r1ur3", {   
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
