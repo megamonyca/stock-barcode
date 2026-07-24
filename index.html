@@ -250,10 +250,12 @@ async function submitData() {
             })
         });
 
-        const result = await response.json();
-        console.log(result);
+       const result = await response.json();
 
-        alert("Berhasil disimpan!");
+console.log("Status :", response.status);
+console.log("Result :", result);
+
+alert(JSON.stringify(result));
 
         document.getElementById("polibox").value = "";
         document.getElementById("material").value = "";
